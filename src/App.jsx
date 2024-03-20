@@ -1,9 +1,8 @@
-import { useState } from "react";
 import "./App.css";
-import TodoForm from "./Components/TodoForm";
+import TodoWrapper from "./Components/TodoWrapper";
 
 function App() {
-  return <TodoForm />;
+  return <TodoWrapper />;
 }
 
 export default App;

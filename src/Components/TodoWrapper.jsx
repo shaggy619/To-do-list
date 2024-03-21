@@ -15,20 +15,37 @@ function TodoWrapper() {
     ]);
   };
 
-  useEffect(() => {
-    console.log(todos);
-  }, [todos]);
+  const handleDelete = (id) => {
+    setTodos(
+      todos.filter((todo) => {
+        return todo.id !== id;
+      })
+    );
+  };
+
+  const toggleCompletion = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
 
   return (
     <>
-      <div className="container">
+      <div className="container my-0 mx-auto">
         <div className="my-0 mx-auto bg-white w-96 lg:w-2/5 relative top-28 rounded shadow-lg pb-8">
           <h2 className="text-primary text-center font-semibold text-2xl py-6 ">
-            Get Things Done!
+            Conquer Your Goals!
           </h2>
           <TodoForm addTodo={addTodo} />
           {todos.map((todo, index) => (
-            <ToDo task={todo} key={index} />
+            <ToDo
+              task={todo}
+              key={index}
+              handleDelete={handleDelete}
+              toggleCompletion={toggleCompletion}
+            />
           ))}
         </div>
       </div>

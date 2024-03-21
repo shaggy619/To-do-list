@@ -2,19 +2,47 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
 
-function ToDo({ task }) {
+function ToDo({ task, handleDelete, toggleCompletion }) {
   return (
     <div>
-      <div className="flex bg-primary mx-8 p-2 rounded-sm mb-2 text-white justify-between">
-        <p>{task.task}</p>
+      <div
+        className={`flex ${
+          task.completed ? "bg-light" : "bg-primary"
+        } mx-8 p-2 rounded-sm mb-2 text-white justify-between items-center`}
+      >
+        <div className="flex items-center">
+          <div>
+            <FontAwesomeIcon
+              icon={faCircleCheck}
+              className={`cursor-pointer border-2 border-white rounded-full ${
+                task.completed
+                  ? "text-white border-secondary"
+                  : "text-primary border-white"
+              } hover:bg-white hover:text-primary hover:rounded-full mt-1`}
+              onClick={() => toggleCompletion(task.id)}
+            />
+          </div>
+          <p className={`mx-2 ${task.completed ? "line-through" : ""}`}>
+            {task.task}
+          </p>
+        </div>
         <div>
           <ul className="flex">
-            <li className="px-2 cursor-pointer">
-              <FontAwesomeIcon icon={faPenToSquare} />
+            <li className="px-2">
+              <FontAwesomeIcon
+                icon={faPenToSquare}
+                className="cursor-pointer"
+              />
             </li>
-            <li className="px-2 cursor-pointer">
-              <FontAwesomeIcon icon={faTrash} />
+            <li className="px-2">
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="cursor-pointer"
+                onClick={() => handleDelete(task.id)}
+              />
             </li>
           </ul>
         </div>

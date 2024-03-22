@@ -58,9 +58,12 @@ function TodoWrapper() {
     <>
       <div className="container my-0 mx-auto">
         <div className="my-0 mx-auto bg-white w-96 lg:w-2/5 relative top-28 rounded shadow-lg pb-8">
-          <h2 className="text-primary text-center font-semibold text-2xl py-6 ">
-            Conquer Your Goals!
+          <h2 className="text-primary text-center font-semibold text-2xl pt-6 ">
+            TaskTickler
           </h2>
+          <h3 className="text-center text-gray-700 pb-5 font-medium text-lg">
+            Effortlessly Organize Your Day
+          </h3>
           <TodoForm addTodo={addTodo} />
           {allTodos.map((todo, index) => (
             <ToDo

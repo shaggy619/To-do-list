@@ -8,8 +8,10 @@ function TodoForm({ addTodo }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo(task);
-    setTask("");
+    if (task.trim() !== "") {
+      addTodo(task);
+      setTask("");
+    }
   };
   return (
     <>

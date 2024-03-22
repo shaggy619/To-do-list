@@ -1,18 +1,26 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TodoForm from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import ToDo from "./ToDo";
+import { Howl } from "howler";
+import soundFile from "./success.mp3";
+import TodoReset from "./TodoReset";
 uuidv4();
 
 function TodoWrapper() {
   const [todos, setTodos] = useState([]);
+  const [isSoundOn] = useState(false);
 
   const addTodo = (todo) => {
     setTodos([
       ...todos,
       { id: uuidv4(), task: todo, completed: false, isEditing: false },
     ]);
+  };
+
+  const resetTodo = () => {
+    setTodos([]);
   };
 
   const handleDelete = (id) => {
@@ -23,13 +31,28 @@ function TodoWrapper() {
     );
   };
 
+  const playSound = () => {
+    const sound = new Howl({
+      src: [soundFile],
+    });
+    sound.play();
+  };
+
   const toggleCompletion = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
+    if (!isSoundOn && todos.find((todo) => todo.id === id && !todo.completed)) {
+      playSound();
+    }
   };
+
+  const incompleteTodos = todos.filter((todo) => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
+
+  const allTodos = [...incompleteTodos, ...completedTodos];
 
   return (
     <>
@@ -39,7 +62,7 @@ function TodoWrapper() {
             Conquer Your Goals!
           </h2>
           <TodoForm addTodo={addTodo} />
-          {todos.map((todo, index) => (
+          {allTodos.map((todo, index) => (
             <ToDo
               task={todo}
               key={index}
@@ -47,6 +70,7 @@ function TodoWrapper() {
               toggleCompletion={toggleCompletion}
             />
           ))}
+          {todos.length > 0 && <TodoReset resetTodo={resetTodo} />}
         </div>
       </div>
     </>

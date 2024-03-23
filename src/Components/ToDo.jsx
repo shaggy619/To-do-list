@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
-import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 function ToDo({ task, handleDelete, toggleCompletion }) {
   return (
@@ -18,7 +17,7 @@ function ToDo({ task, handleDelete, toggleCompletion }) {
               icon={faCircleCheck}
               className={`cursor-pointer border-2 border-white rounded-full ${
                 task.completed
-                  ? "text-white border-transparent"
+                  ? "text-white border-secondary"
                   : "text-primary border-white"
               } hover:bg-white hover:text-primary hover:rounded-full mt-1`}
               onClick={() => toggleCompletion(task.id)}

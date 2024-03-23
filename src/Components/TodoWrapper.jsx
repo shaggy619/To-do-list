@@ -13,10 +13,7 @@ function TodoWrapper() {
   const [isSoundOn] = useState(false);
 
   const addTodo = (todo) => {
-    setTodos([
-      ...todos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false },
-    ]);
+    setTodos([...todos, { id: uuidv4(), task: todo, completed: false }]);
   };
 
   const resetTodo = () => {
@@ -44,6 +41,7 @@ function TodoWrapper() {
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
+
     if (!isSoundOn && todos.find((todo) => todo.id === id && !todo.completed)) {
       playSound();
     }
